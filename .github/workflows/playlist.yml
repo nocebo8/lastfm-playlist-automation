@@ -1,0 +1,27 @@
+name: Playlist Automation
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'   # Co poniedziałek o 9:00 UTC
+  workflow_dispatch:      # Możesz też odpalić ręcznie
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Generate Playlist
+        run: python playlist_generator.py
+      - name: Commit and push CSV
+        run: |
+          git config --global user.email "bot@github.com"
+          git config --global user.name "GitHub Actions"
+          git add playlist_lastfm.csv
+          git commit -m "Automated playlist update"
+          git push

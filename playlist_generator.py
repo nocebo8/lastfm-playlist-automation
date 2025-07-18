@@ -6,7 +6,7 @@ from collections import defaultdict
 API_KEY = "b5befec30db2e1875c0bbf5b9757d4b2"
 USER = "NostromoRock"
 PERIOD = "6month"
-LIMIT = 30
+LIMIT = 80
 
 # Pobierz top utwory z ostatnich 180 dni
 url = f"http://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user={USER}&api_key={API_KEY}&period={PERIOD}&limit={LIMIT}&format=json"

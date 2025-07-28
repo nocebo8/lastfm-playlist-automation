@@ -1,3 +1,4 @@
+import os
 import requests
 import pandas as pd
 import random
@@ -5,7 +6,7 @@ from collections import defaultdict
 
 API_KEY = "b5befec30db2e1875c0bbf5b9757d4b2"
 USER = "NostromoRock"
-PERIOD = "6month"
+PERIOD = os.getenv("PERIOD", "6month")
 LIMIT = 80
 
 # Pobierz top utwory z ostatnich 180 dni

@@ -3,7 +3,12 @@ name: Playlist Automation
 on:
   schedule:
     - cron: '0 9 * * 1'   # Co poniedziałek o 9:00 UTC
-  workflow_dispatch:      # Możesz też odpalić ręcznie
+  workflow_dispatch:
+    inputs:
+      period:
+        description: "Okres historii (1day, 7day, 1month, 6month)"
+        required: false
+        default: "6month"
 
 jobs:
   build:
@@ -17,6 +22,8 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Generate Playlist
+        env:
+          PERIOD: ${{ github.event.inputs.period || '6month' }}
         run: python playlist_generator.py
       - name: Commit and push CSV
         run: |
